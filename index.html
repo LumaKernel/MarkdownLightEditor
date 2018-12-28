@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js"></script>
+
+<script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+          processEscapes: true,
+        },"HTML-CSS": { fonts: ["TeX"] },
+        skipStartupTypeset: true
+      })
+</script>
+
+<script src="https://unpkg.com/vue"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="./style.css?ver=1"/>
+
+</head>
+<body>
+
+<div id="app">
+
+<table id="view-table">
+<tr>
+  <td style="width:50%">
+  <textarea
+  id="input"
+  v-model="input"
+  v-on:change="changeInput"
+  v-on:keypress="changeInput"
+  v-on:keydown="changeInput"
+  v-on:keyup="changeInput"
+  placeholder="input"
+  ></textarea>
+  </td>
+  <td style="width:50%">
+    <div id="preview" v-html="preview" ref="preview">
+    </div>
+  </td>
+</tr>
+</table>
+
+<textarea
+id="escaped"
+v-model="escaped"
+v-on:change="changeEscaped" 
+v-on:keypress="changeEscaped"
+v-on:keydown="changeEscaped"   
+v-on:keyup="changeEscaped"    
+placeholder="escaped"
+></textarea>
+
+<h3>
+settings
+</h3>
+
+<br>
+inline
+<br>
+<label>left <input type="text" v-model="in_left" class="separator"></label>
+<br>
+<label>right<input type="text" v-model="in_right" class="separator"></label>
+
+<br><br>
+display
+<br>
+<label>left <input type="text" v-model="d_left" class="separator"></label>
+<br>
+<label>right<input type="text" v-model="d_right" class="separator"></label>
+
+<br><br>
+
+target<br>
+<label><input name="target" type="radio" v-model="target" value="hatena"> はてなブログ</label>
+
+<br><br>
+
+renderer<br>
+<label><input name="renderer" type="radio" v-model="renderer" value="katex">KaTeX</label>
+<label><input name="renderer" type="radio" v-model="renderer" value="mathjax">MathJax</label>
+
+<br>
+<input type="button" value="設定を保存" v-on:click="saveLocalSetting">
+
+<br>
+文章本体は自動セーブされます．また，エスケープしたものは可逆です
+<br>
+コードは特に装飾しないです
+
+<br>
+<br>
+<br>
+</div>
+
+<script src="./main.js?ver=1"></script>
+
+</body>
+
