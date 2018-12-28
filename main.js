@@ -92,12 +92,13 @@ function unescape(src, left, right, disp) {
   else
   	return src
         .replace(TeXRegExp, (_, str) => {
-          return `${left}${markedUnscape(str)}${right}`
+          return `${left}${str}${right}`
         })
 }
 
 function markedUnscape (str) {
-	return str.replace(/\\/g, "\\\\")
+	return str
+  	.replace(/[\\*^_\[\]]/g, "\\$&")
 }
 
 function previewHTML(vue) {
@@ -113,8 +114,8 @@ renderer.mathjax = (vue) => {
     extensions: ["tex2jax.js"],
     jax: ["input/TeX", "output/HTML-CSS"],
     tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+      inlineMath: [ [vue.in_left,vue.in_right] ],
+      displayMath: [ [vue.d_left,vue.d_right] ],
       processEscapes: true,
     },"HTML-CSS": { fonts: ["TeX"] },
     skipStartupTypeset: true
@@ -230,4 +231,5 @@ new Vue({
   	this.changeInput()
   }
 })
+
 
