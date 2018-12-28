@@ -29,7 +29,7 @@ escapes.hatena = (src, left, right, disp) => {
   else
     return src.replace(TeXRegExp, (orig, str) => {
         if(str.match(/\n\n/)) return orig
-        str = DISP_RETURN + "\\displaystyle" + str.replace(/\n/g, DISP_RETURN);
+        str = DISP_RETURN + "\\displaystyle " + str.replace(/\n/g, DISP_RETURN);
         return `[tex:${HatenaEscape(str)}]`
       })
 
@@ -49,7 +49,7 @@ function RegExpEscape(str) {
 decodes.hatena = (src, vue) => {
 	const HatenaTeXRegExp = /\[tex:((?:\\\\\]|\\(?!\])|[^\n\]\\])*\n?(?:\\\\\]|\\(?!\])|[^\n\]\\])*)\]/gi
 
-	const DispRegExp = /^   \\\\displaystyle(.*)/
+	const DispRegExp = /^   \\\\displaystyle (.*)/
 
 	return src.replace(HatenaTeXRegExp, (orig, str) => {
   		if(str) str = str.replace(/\n/g, "")
